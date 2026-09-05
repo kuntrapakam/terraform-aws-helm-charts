@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/://github.com
+kind: ApplicationSet
+metadata:
+  name: microservices-appset
+  namespace: argocd
+spec:
+  generators:
+    # 1. Look inside your Git repository
+    - git:
+        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
+        targetRevision: HEAD
+        # 2. Find any sub-folder inside the 'apps/' directory
+        directories:
+          - path: .
+  template:
+    metadata:
+      # 3. Dynamically name the app based on the sub-folder name
+      name: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
+        targetRevision: HEAD
+        # 4. Use the discovered sub-folder path as the source configuration
+        path: '{{path}}'
+      destination:
+        server: 'https://default.svc'
+        # 5. Automatically deploy into a namespace matching the app name
+        namespace: '{{path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
