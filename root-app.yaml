@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: root-apps-manager
-  namespace: argocd
+  namespace: default
 spec:
   project: default
   source:
@@ -11,7 +11,7 @@ spec:
     path: apps # Points to the folder containing child manifests
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: argocd # Must be deployed into the Argo CD namespace
+    namespace: default # Must be deployed into the Argo CD namespace
   syncPolicy:
     automated:
       prune: true # Deletes child apps if their files are removed from Git

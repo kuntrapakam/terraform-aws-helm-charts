@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 # The target namespace where Argo CD controller is running
-namespace: argocd
+namespace: default
 
 # Lists the resources Kustomize will bundle together
 resources:
