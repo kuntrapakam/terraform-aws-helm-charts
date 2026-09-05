@@ -11,7 +11,7 @@ spec:
         targetRevision: HEAD
         # 2. Find any sub-folder inside the 'apps/' directory
         directories:
-          - path: .
+          - path: test
   template:
     metadata:
       # 3. Dynamically name the app based on the sub-folder name
