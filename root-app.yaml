@@ -8,11 +8,11 @@ spec:
   source:
     repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
     targetRevision: HEAD
-    path: apps # Points to the folder containing child manifests
+    path: apps
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: argocd # Must be deployed into the Argo CD namespace
+    namespace: argocd
   syncPolicy:
     automated:
-      prune: true # Deletes child apps if their files are removed from Git
+      prune: true
       selfHeal: true
