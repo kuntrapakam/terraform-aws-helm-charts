@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: frontend-app
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # Enables cascading delete
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
+    targetRevision: HEAD
+    path: application # Path to your actual application manifests
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: application
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
