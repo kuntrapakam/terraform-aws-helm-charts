@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - root-app.yaml
+  - apset.yaml
 
 commonLabels:
   managed-by: gitops-bootstrap

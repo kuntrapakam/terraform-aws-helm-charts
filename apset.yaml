@@ -1,4 +1,4 @@
-apiVersion: argoproj.io/://github.com
+apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: microservices-appset
@@ -7,11 +7,12 @@ spec:
   generators:
     # 1. Look inside your Git repository
     - git:
-        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
-        targetRevision: HEAD
-        # 2. Find any sub-folder inside the 'apps/' directory
+        repoURL: 'https://github.com'
+        # FIXED: Changed targetRevision to revision
+        revision: HEAD
+        # 2. Find any sub-folder inside the 'test/' directory
         directories:
-          - path: test
+          - path: test/*
   template:
     metadata:
       # 3. Dynamically name the app based on the sub-folder name
@@ -19,12 +20,12 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
-        targetRevision: HEAD
+        repoURL: 'https://github.com'
+        targetRevision: HEAD # This one remains targetRevision (standard Application spec)
         # 4. Use the discovered sub-folder path as the source configuration
         path: '{{path}}'
       destination:
-        server: 'https://default.svc'
+        server: 'https://kubernetes.default.svc'
         # 5. Automatically deploy into a namespace matching the app name
         namespace: '{{path.basename}}'
       syncPolicy:
