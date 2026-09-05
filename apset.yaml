@@ -7,7 +7,7 @@ spec:
   generators:
     # 1. Look inside your Git repository
     - git:
-        repoURL: 'https://github.com'
+        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
         # FIXED: Changed targetRevision to revision
         revision: HEAD
         # 2. Find any sub-folder inside the 'test/' directory
@@ -20,7 +20,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://github.com'
+        repoURL: 'https://github.com/kuntrapakam/terraform-aws-helm-charts.git'
         targetRevision: HEAD # This one remains targetRevision (standard Application spec)
         # 4. Use the discovered sub-folder path as the source configuration
         path: '{{path}}'
